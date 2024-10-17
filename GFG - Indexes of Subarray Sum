@@ -1,0 +1,44 @@
+Question:
+Given an unsorted array arr containing only non-negative integers, your task is to find a continuous subarray (a contiguous sequence of elements) 
+whose sum equals a specified value s. You need to return the 1-based indices of the leftmost and rightmost elements of this subarray.
+
+Examples:
+
+Input: arr[] = [1,2,3,7,5], s = 12
+Output: [2, 4]
+Explanation: The sum of elements from 2nd to 4th position is 12.
+
+Input: arr[] = [1,2,3,4,5,6,7,8,9,10], s = 15,
+Output: [1, 5]
+Explanation: The sum of elements from 1st to 5th position is 15.
+
+Input: arr[] = [7,2,1], s = 2
+Output: [2, 2]
+Explanation: The sum of elements from 2nd to 2nd position is 2.
+
+Input: arr[] = [5,3,4], s = 2
+Output: -1
+Explanation: There is no subarray with sum 2.
+
+
+
+Solution:
+class Solution:
+    def subArraySum(self, arr, s):
+        n = len(arr)
+        start = 0
+        current_sum = 0
+        
+        for end in range(n):
+            current_sum += arr[end]
+            
+            # While current_sum exceeds s, move the start pointer to reduce the sum
+            while current_sum > s and start <= end:
+                current_sum -= arr[start]
+                start += 1
+            
+            # Check if the current sum equals s
+            if current_sum == s:
+                return [start + 1, end + 1]  # Return 1-based indices
+        
+        return [-1]  # Return -1 if no valid subarray is found
