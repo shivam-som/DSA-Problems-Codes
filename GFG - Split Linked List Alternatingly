@@ -1,0 +1,57 @@
+Question:
+Given a singly linked list's head. Your task is to complete the function alternatingSplitList() that splits the given linked list into two smaller lists. 
+The sublists should be made from alternating elements from the original list.
+
+Note: 
+    The sublist should be in the order with respect to the original list.
+    Your have to return an array containing the both sub-linked lists.
+
+Examples:
+
+Input: LinkedList = 0->1->0->1->0->1
+Output: 0->0->0 , 1->1->1
+Explanation: After forming two sublists of the given list as required, we have two lists as: 0->0->0 and 1->1->1.
+
+Input: LinkedList = 2->5->8->9->6
+Output: 2->8->6 , 5->9
+Explanation: After forming two sublists of the given list as required, we have two lists as: 2->8->6 and 5->9.
+
+Input: LinkedList: 7 
+Output: 7 , <empty linked list>
+
+
+
+Solution:
+class Solution:
+    def alternatingSplitList(self, head):
+        #Your code here
+        self.head=head
+        p=head
+        j=head
+        d=0
+        while j is not None:
+            d=d+1
+            j=j.next
+        if d%2!=0:
+            c=head
+            b=head.next
+            while p.next is not None:
+                k=p.next
+                a=p.next.next
+                p.next=a
+                p=p.next
+                k.next=p.next
+            p.next=None
+            return c,b
+        else:
+            c=head
+            b=head.next
+            while p.next.next is not None:
+                k=p.next
+                a=p.next.next
+                p.next=a
+                p=p.next
+                k.next=p.next
+            p.next=None
+            
+            return c,b
